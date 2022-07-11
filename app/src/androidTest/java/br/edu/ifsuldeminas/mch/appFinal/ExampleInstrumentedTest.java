@@ -1,4 +1,4 @@
-package br.edu.ifsuldeminas.mch.tarefas2;
+package br.edu.ifsuldeminas.mch.appFinal;
 
 import android.content.Context;
 

@@ -1,6 +1,5 @@
-package br.edu.ifsuldeminas.mch.tarefas2;
+package br.edu.ifsuldeminas.mch.appFinal;
 
-import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -18,18 +17,18 @@ import androidx.navigation.Navigation;
 
 import java.util.List;
 
-import br.edu.ifsuldeminas.mch.tarefas2.databinding.FragmentMainCategoryBinding;
-import br.edu.ifsuldeminas.mch.tarefas2.db.CategoryDAO;
-import br.edu.ifsuldeminas.mch.tarefas2.domain.Category;
+import br.edu.ifsuldeminas.mch.appFinal.databinding.FragmentMainBinding;
+import br.edu.ifsuldeminas.mch.appFinal.db.UserDAO;
+import br.edu.ifsuldeminas.mch.appFinal.domain.User;
 
-public class MainCategoryFragment extends Fragment {
+public class MainFragment extends Fragment {
 
-    private FragmentMainCategoryBinding binding;
+    private FragmentMainBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentMainCategoryBinding.inflate(inflater, container, false);
+        binding = FragmentMainBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -37,21 +36,21 @@ public class MainCategoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        registerForContextMenu(binding.categoryList);
+        registerForContextMenu(binding.todoList);
 
-        binding.categoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.todoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView,
                                     View view, int position, long l) {
 
-                Category category = (Category) binding.categoryList.getItemAtPosition(position);
+                User user = (User) binding.todoList.getItemAtPosition(position);
 
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("category", category);
+                bundle.putSerializable("user", user);
 
                 NavController navController = Navigation.findNavController(
                         getActivity(), R.id.nav_host_fragment_content_main);
-                navController.navigate(R.id.action_MainCategoryFragment_to_CategoryFragment, bundle);
+                navController.navigate(R.id.action_MainFragment_to_TaskFragment, bundle);
             }
         });
     }
@@ -65,42 +64,39 @@ public class MainCategoryFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        updateCategorys();
+        updateTasks();
     }
 
-    private void updateCategorys() {
-        CategoryDAO dao = new CategoryDAO(getContext());
-        List<Category> categories = dao.listAll();
+    private void updateTasks() {
+        UserDAO dao = new UserDAO(getContext());
+        List<User> users = dao.listAll();
 
         ArrayAdapter adapter = new ArrayAdapter(getContext(),
-                android.R.layout.simple_list_item_1, categories);
+                android.R.layout.simple_list_item_1, users);
 
-        binding.categoryList.setAdapter(adapter);
+        binding.todoList.setAdapter(adapter);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
-        MenuItem item = menu.add(R.string.delete_category);
+        MenuItem item = menu.add(R.string.delete_user);
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 AdapterView.AdapterContextMenuInfo info =
                         (AdapterView.AdapterContextMenuInfo) menuInfo;
 
-                Category categorySelected = (Category) binding.categoryList.getItemAtPosition(
+                User taskSelected = (User) binding.todoList.getItemAtPosition(
                         info.position);
 
-                CategoryDAO categoryDAO = new CategoryDAO(getContext());
-                try {
-                    categoryDAO.delete(categorySelected);
-                    Toast.makeText(getContext(), R.string.category_deleted,
-                            Toast.LENGTH_SHORT).show();
-                    updateCategorys();
-                }catch (SQLiteConstraintException sqLiteConstraintException){
-                    Toast.makeText(getContext(), R.string.error_exclusao,
-                            Toast.LENGTH_SHORT).show();
-                }
+                UserDAO taskDAO = new UserDAO(getContext());
+                taskDAO.delete(taskSelected);
+
+                Toast.makeText(getContext(), R.string.user_deleted,
+                        Toast.LENGTH_SHORT).show();
+
+                updateTasks();
                 return true;
             }
         });

@@ -1,4 +1,4 @@
-package br.edu.ifsuldeminas.mch.tarefas2.db;
+package br.edu.ifsuldeminas.mch.appFinal.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -8,23 +8,23 @@
 
     <fragment
         android:id="@+id/MainFragment"
-        android:name="br.edu.ifsuldeminas.mch.tarefas2.MainFragment"
+        android:name="br.edu.ifsuldeminas.mch.appFinal.MainFragment"
         android:label="@string/main_fragment_title"
         tools:layout="@layout/fragment_main">
 
         <action
             android:id="@+id/action_MainFragment_to_TaskFragment"
-            app:destination="@id/TaskFragment" />
+            app:destination="@id/UserFragment" />
         <action
             android:id="@+id/action_MainFragment_to_MainCategoryFragment"
             app:destination="@id/MainCategoryFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/TaskFragment"
-        android:name="br.edu.ifsuldeminas.mch.tarefas2.TaskFragment"
+        android:id="@+id/UserFragment"
+        android:name="br.edu.ifsuldeminas.mch.appFinal.UserFragment"
         android:label="@string/task_fragment_title"
-        tools:layout="@layout/fragment_task">
+        tools:layout="@layout/user_fragment">
 
         <action
             android:id="@+id/action_TaskFragment_to_MainFragment"
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/CategoryFragment"
-        android:name="br.edu.ifsuldeminas.mch.tarefas2.CategoryFragment"
+        android:name="br.edu.ifsuldeminas.mch.appFinal.CategoryFragment"
         android:label="@string/category_fragment_title"
         tools:layout="@layout/fragment_category">
         <action
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/MainCategoryFragment"
-        android:name="br.edu.ifsuldeminas.mch.tarefas2.MainCategoryFragment"
+        android:name="br.edu.ifsuldeminas.mch.appFinal.MainCategoryFragment"
         android:label="@string/category_main_fragment_title"
         tools:layout="@layout/fragment_main_category">
         <action

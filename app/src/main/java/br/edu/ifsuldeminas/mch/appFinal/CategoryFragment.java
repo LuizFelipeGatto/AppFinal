@@ -1,4 +1,4 @@
-package br.edu.ifsuldeminas.mch.tarefas2;
+package br.edu.ifsuldeminas.mch.appFinal;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +13,9 @@ import androidx.navigation.Navigation;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import br.edu.ifsuldeminas.mch.tarefas2.databinding.FragmentCategoryBinding;
-import br.edu.ifsuldeminas.mch.tarefas2.db.CategoryDAO;
-import br.edu.ifsuldeminas.mch.tarefas2.domain.Category;
+import br.edu.ifsuldeminas.mch.appFinal.databinding.FragmentCategoryBinding;
+import br.edu.ifsuldeminas.mch.appFinal.db.CategoryDAO;
+import br.edu.ifsuldeminas.mch.appFinal.domain.Category;
 
 public class CategoryFragment extends Fragment {
 
@@ -59,8 +59,8 @@ public class CategoryFragment extends Fragment {
                         CategoryDAO dao = new CategoryDAO(getContext());
                         dao.update(category);
 
-                        Toast.makeText(getContext(), R.string.task_updated,
-                                Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), R.string.task_updated,
+//                                Toast.LENGTH_SHORT).show();
                     }
                 }
 

@@ -1,4 +1,4 @@
-package br.edu.ifsuldeminas.mch.tarefas2.db;
+package br.edu.ifsuldeminas.mch.appFinal.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ifsuldeminas.mch.tarefas2.domain.Category;
+import br.edu.ifsuldeminas.mch.appFinal.domain.Category;
 
 public class CategoryDAO extends DAO<Category> {
 

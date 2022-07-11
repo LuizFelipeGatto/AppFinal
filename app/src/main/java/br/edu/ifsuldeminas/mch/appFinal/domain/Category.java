@@ -1,4 +1,4 @@
-package br.edu.ifsuldeminas.mch.tarefas2.domain;
+package br.edu.ifsuldeminas.mch.appFinal.domain;
 
 import java.io.Serializable;
 

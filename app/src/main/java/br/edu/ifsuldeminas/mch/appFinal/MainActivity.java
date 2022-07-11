@@ -1,4 +1,4 @@
-package br.edu.ifsuldeminas.mch.tarefas2;
+package br.edu.ifsuldeminas.mch.appFinal;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,7 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import br.edu.ifsuldeminas.mch.tarefas2.databinding.ActivityMainBinding;
+import br.edu.ifsuldeminas.mch.appFinal.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
