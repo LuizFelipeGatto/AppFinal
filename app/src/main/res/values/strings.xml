@@ -22,4 +22,5 @@
     <string name="category_description_empty">Descrição da categoria não pode ser vazia</string>
     <string name="category_main_fragment_title">Listagem de categorias</string>
     <string name="error_exclusao">Esta categoria não pode ser excluída, pois está vinculada a uma tarefa!</string>
+    <string name="save_cep">Verificar cidade</string>
 </resources>

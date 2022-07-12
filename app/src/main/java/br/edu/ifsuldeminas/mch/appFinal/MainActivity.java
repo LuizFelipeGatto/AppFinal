@@ -80,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            if (navController.getCurrentDestination().getId() == R.id.MainFragment){
-                navController.navigate(R.id.action_MainFragment_to_MainCategoryFragment);
-            }
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            if (navController.getCurrentDestination().getId() == R.id.MainFragment){
+//                navController.navigate(R.id.action_MainFragment_to_MainCategoryFragment);
+//            }
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

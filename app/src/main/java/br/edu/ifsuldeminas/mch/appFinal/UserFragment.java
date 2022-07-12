@@ -15,24 +15,26 @@ import androidx.navigation.Navigation;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONException;
+
 import java.util.List;
+
 
 import br.edu.ifsuldeminas.mch.appFinal.databinding.UserFragmentBinding;
 import br.edu.ifsuldeminas.mch.appFinal.db.UserDAO;
 import br.edu.ifsuldeminas.mch.appFinal.domain.Cidade;
 import br.edu.ifsuldeminas.mch.appFinal.domain.User;
-import br.edu.ifsuldeminas.mch.appFinal.parsers.CidadeParser;
-import br.edu.ifsuldeminas.mch.appFinal.parsers.CidadeService;
-import br.edu.ifsuldeminas.mch.appFinal.parsers.CidadeServiceObserver;
 import br.edu.ifsuldeminas.mch.appFinal.services.Conexao;
 
-public class UserFragment extends Fragment implements CidadeServiceObserver{
+
+public class UserFragment extends Fragment{
 
     private User user;
     private UserFragmentBinding binding;
     private List<Cidade> cities;
     private Cidade city = null;
     private TextView textView;
+    String retorno = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,9 +42,9 @@ public class UserFragment extends Fragment implements CidadeServiceObserver{
 
         binding = UserFragmentBinding.inflate(inflater, container, false);
         textView = (TextView) binding.textRetorno;
+        binding.buttonSaveTaskId.setVisibility(View.INVISIBLE);
+        textView.setVisibility(View.INVISIBLE);
 
-        Tarefa tarefa = new Tarefa();
-        tarefa.execute("https://viacep.com.br/ws/01001000/json/");
         return binding.getRoot();
     }
 
@@ -50,7 +52,11 @@ public class UserFragment extends Fragment implements CidadeServiceObserver{
 
         @Override
         protected String doInBackground(String... strings) {
-            String retorno = Conexao.getDados(strings[0]);
+            try {
+                retorno = Conexao.getDados(strings[0]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             return retorno;
         }
 
@@ -63,11 +69,17 @@ public class UserFragment extends Fragment implements CidadeServiceObserver{
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        CidadeService cityService = new CidadeService();
-        cityService.register(this);
-
-        CidadeParser cidadeParser = new CidadeParser();
-        List<Cidade> listCidades = cidadeParser.getCities("cidade");
+        binding.verificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Tarefa tarefa = new Tarefa();
+                TextInputEditText cepTIET = binding.cep;
+                String cep = cepTIET.getText().toString();
+                tarefa.execute("https://viacep.com.br/ws/"+cep+"/json/");
+                binding.buttonSaveTaskId.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.VISIBLE);
+            }
+        });
 
 
         binding.buttonSaveTaskId.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +91,7 @@ public class UserFragment extends Fragment implements CidadeServiceObserver{
                 String nome = nomeTIET.getText().toString();
                 nome = nome != null ? nome : "";
 
-                String naturalidade = cepTIET.getText().toString();
+                String naturalidade = retorno;
                 naturalidade = naturalidade != null ? naturalidade : "";
 
                 if(nome.equals("")){
@@ -138,10 +150,4 @@ public class UserFragment extends Fragment implements CidadeServiceObserver{
         }
     }
 
-    @Override
-    public void serviceDone(List<Cidade> cities) {
-        this.cities = cities;
-//        binding.spinner.setAdapter((SpinnerAdapter) new CidadeAdapter(getContext(), cities));
-        // Atualiza a lista
-    }
 }
